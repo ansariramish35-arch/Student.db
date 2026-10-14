@@ -5,7 +5,6 @@ import { db } from "@/db";
 import { students, type StudentRow } from "@/db/schema";
 import { ensureSeeded } from "@/db/seed";
 
-export const dynamic = "force-dynamic";
 
 // Mirrors backend/app/routers/assistant.py — the model never writes SQL.
 // Safe parameterized ORM queries fetch grounded records; a local Ollama
