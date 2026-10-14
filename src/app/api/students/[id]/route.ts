@@ -9,7 +9,6 @@ import {
   studentPatchSchema,
 } from "@/lib/validation";
 
-export const dynamic = "force-dynamic";
 
 type Ctx = { params: Promise<{ id: string }> };
 
