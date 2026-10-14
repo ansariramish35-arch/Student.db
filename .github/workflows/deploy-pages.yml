@@ -18,7 +18,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: student-db-static-export
   cancel-in-progress: false
 
 jobs:
