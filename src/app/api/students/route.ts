@@ -6,7 +6,6 @@ import { students } from "@/db/schema";
 import { ensureSeeded } from "@/db/seed";
 import { normalizeBody, studentCreateSchema } from "@/lib/validation";
 
-export const dynamic = "force-dynamic";
 
 function isUniqueViolation(err: unknown): boolean {
   const anyErr = err as { code?: string; cause?: { code?: string } } | null;
