@@ -48,3 +48,19 @@ jobs:
             git commit -m "Publish generated static site"
             git push origin HEAD:main
           fi
+
+      - name: Verify published site
+        run: |
+          set -e
+          url="https://ansariramish35-arch.github.io/Student.db/?check=${GITHUB_SHA}"
+          for attempt in $(seq 1 24); do
+            status="$(curl -sS -L -o /tmp/student-db-page.html -w "%{http_code}" "$url" || true)"
+            if [ "$status" = "200" ] && grep -q "/Student.db/_next/" /tmp/student-db-page.html; then
+              echo "Published page responded with HTTP 200 and the expected Next.js asset paths."
+              exit 0
+            fi
+            echo "Attempt $attempt/24: HTTP $status; waiting for GitHub Pages to publish."
+            sleep 10
+          done
+          echo "The live site did not become ready with the expected asset paths."
+          exit 1
