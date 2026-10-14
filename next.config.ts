@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // GitHub Pages serves static files only; the CRUD/API backend must be hosted separately.
+  // This is a project Pages site, not a user/organization root site.
+  basePath: "/Student.db",
   output: "export",
   trailingSlash: true,
   images: {
