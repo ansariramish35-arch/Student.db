@@ -29,7 +29,6 @@ function notFound(id: number) {
   );
 }
 
-export const dynamic = "force-dynamic";
 
 // GET /api/students/{id} — view a student
 export async function GET(_req: NextRequest, ctx: Ctx) {
