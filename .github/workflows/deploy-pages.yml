@@ -1,4 +1,4 @@
-name: Deploy static site to GitHub Pages
+name: Build and publish static site to GitHub Pages
 
 on:
   push:
@@ -14,8 +14,6 @@ on:
 
 permissions:
   contents: write
-  pages: write
-  id-token: write
 
 concurrency:
   group: student-db-static-export
@@ -32,16 +30,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
       - name: Install dependencies
         run: npm install
       - name: Build static export
         run: npm run build
-
-      # If Pages is still set to "Deploy from a branch", publish the generated
-      # export at the repository root as well. Restrict push triggers above to
-      # source/config paths so this generated-output commit does not loop.
       - name: Publish static files for branch-based Pages
         run: |
           set -e
@@ -56,19 +48,3 @@ jobs:
             git commit -m "Publish generated static site"
             git push origin HEAD:main
           fi
-
-      - name: Upload static site
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: ./out
-
-  deploy:
-    needs: build
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Deploy static site
-        id: deployment
-        uses: actions/deploy-pages@v4
