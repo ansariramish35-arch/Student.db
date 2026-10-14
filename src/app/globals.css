@@ -1,0 +1,169 @@
+@import "tailwindcss";
+
+:root {
+  --acid: #d2ff3a;
+  --iris: #8f85ff;
+  --ink: #060609;
+  --panel: #0d0d14;
+  --line: rgba(255, 255, 255, 0.08);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--acid);
+  color: #060609;
+}
+
+/* ---------- scrollbars ---------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #08080d;
+}
+::-webkit-scrollbar-thumb {
+  background: #272732;
+  border-radius: 8px;
+  border: 2px solid #08080d;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3b3b4a;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #272732 #08080d;
+}
+
+/* ---------- typography helpers ---------- */
+.font-display {
+  font-family: var(--font-syne), sans-serif;
+}
+.font-mono2 {
+  font-family: var(--font-jbmono), ui-monospace, monospace;
+}
+.text-outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(210, 255, 58, 0.85);
+}
+.text-outline-ghost {
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.16);
+}
+
+/* ---------- backgrounds ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 54px 54px;
+}
+
+.noise {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- motion ---------- */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+.marquee-mask {
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    black 8%,
+    black 92%,
+    transparent
+  );
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+.animate-floaty {
+  animation: floaty 6.5s ease-in-out infinite;
+}
+
+@keyframes blink-caret {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.animate-blink {
+  animation: blink-caret 1.05s step-end infinite;
+}
+
+@keyframes pulse-dot {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(210, 255, 58, 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(210, 255, 58, 0);
+  }
+}
+.animate-pulse-dot {
+  animation: pulse-dot 2s ease-out infinite;
+}
+
+/* ---------- form controls ---------- */
+.field {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 10px 14px;
+  font-size: 14px;
+  color: #f4f4f6;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+}
+.field::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+.field:focus {
+  border-color: rgba(210, 255, 58, 0.6);
+  background: rgba(210, 255, 58, 0.04);
+  box-shadow: 0 0 0 3px rgba(210, 255, 58, 0.12);
+}
+.field-error {
+  border-color: rgba(251, 113, 133, 0.7) !important;
+}
+select.field option {
+  background: #10101a;
+  color: #f4f4f6;
+}
+input[type="date"].field::-webkit-calendar-picker-indicator {
+  filter: invert(0.7);
+  cursor: pointer;
+}
